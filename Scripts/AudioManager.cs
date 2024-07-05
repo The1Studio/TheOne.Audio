@@ -197,7 +197,7 @@ namespace UniT.Audio
 
         void IAudioManager.UnloadSound(string name)
         {
-            if (!this.loadedSoundSources.TryRemove(name, out var soundSource))
+            if (!this.loadedSoundSources.Remove(name, out var soundSource))
             {
                 this.logger.Warning($"Trying to unload sound {name} that was not loaded");
                 return;
