@@ -12,7 +12,7 @@ namespace UniT.Audio
         {
             if (container.HasBinding<IAudioManager>()) return;
             container.BindLoggerManager();
-            container.BindResourceManagers();
+            container.BindAssetsManager();
             container.BindInterfacesTo<AudioManager>().AsSingle();
         }
     }

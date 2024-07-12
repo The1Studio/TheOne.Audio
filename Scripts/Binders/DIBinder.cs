@@ -12,7 +12,7 @@ namespace UniT.Audio
         {
             if (container.Contains<IAudioManager>()) return;
             container.AddLoggerManager();
-            container.AddResourceManagers();
+            container.AddAssetsManager();
             container.AddInterfaces<AudioManager>();
         }
     }
