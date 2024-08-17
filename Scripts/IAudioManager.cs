@@ -58,7 +58,7 @@ namespace UniT.Audio
 
         public void LoadMusic(string name);
 
-        public void PlayMusic(string name, bool force = false);
+        public void PlayMusic(string name, bool loop = true, bool force = false);
 
         public void PauseMusic();
 

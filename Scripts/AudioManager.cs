@@ -38,7 +38,6 @@ namespace UniT.Audio
 
             this.audioSourcesContainer = new GameObject(nameof(AudioManager)).DontDestroyOnLoad();
             this.musicSource           = this.audioSourcesContainer.AddComponent<AudioSource>();
-            this.musicSource.loop      = true;
 
             this.logger.Debug("Constructed");
         }
@@ -251,12 +250,13 @@ namespace UniT.Audio
 
         void IAudioManager.LoadMusic(string name) => this.LoadMusic(name);
 
-        void IAudioManager.PlayMusic(string name, bool force)
+        void IAudioManager.PlayMusic(string name, bool loop, bool force)
         {
             this.LoadMusic(name);
+            this.musicSource.loop = true;
             if (!force && this.musicSource.isPlaying) return;
             this.musicSource.Play();
-            this.logger.Debug($"Playing music {name}");
+            this.logger.Debug($"Playing music {name}, loop: {loop}");
         }
 
         void IAudioManager.PauseMusic() => this.musicSource.Pause();
