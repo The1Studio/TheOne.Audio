@@ -1,12 +1,12 @@
 #if UNIT_ZENJECT
 #nullable enable
-namespace UniT.Audio
+namespace UniT.Audio.DI
 {
-    using UniT.Logging;
-    using UniT.ResourceManagement;
+    using UniT.Logging.DI;
+    using UniT.ResourceManagement.DI;
     using Zenject;
 
-    public static class ZenjectBinder
+    public static class AudioManagerZenject
     {
         public static void BindAudioManager(this DiContainer container)
         {

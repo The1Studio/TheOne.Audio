@@ -1,12 +1,12 @@
 ﻿#if UNIT_DI
 #nullable enable
-namespace UniT.Audio
+namespace UniT.Audio.DI
 {
     using UniT.DI;
-    using UniT.Logging;
-    using UniT.ResourceManagement;
+    using UniT.Logging.DI;
+    using UniT.ResourceManagement.DI;
 
-    public static class DIBinder
+    public static class AudioManagerDI
     {
         public static void AddAudioManager(this DependencyContainer container)
         {
