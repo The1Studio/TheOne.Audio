@@ -271,13 +271,13 @@ namespace UniT.Audio
         {
             if (this.currentMusic == name) return;
             this.musicSource.clip = this.assetsManager.Load<AudioClip>(name);
-            if (this.currentMusic != null) this.assetsManager.Unload(this.currentMusic);
+            if (this.currentMusic is { }) this.assetsManager.Unload(this.currentMusic);
             this.currentMusic = name;
         }
 
         private void UnloadMusic()
         {
-            if (this.currentMusic == null) return;
+            if (this.currentMusic is null) return;
             this.musicSource.Stop();
             this.musicSource.clip = null;
             this.assetsManager.Unload(this.currentMusic);
@@ -310,7 +310,7 @@ namespace UniT.Audio
                         .ContinueWith(audioClip =>
                         {
                             this.musicSource.clip = audioClip;
-                            if (this.currentMusic != null) this.assetsManager.Unload(this.currentMusic);
+                            if (this.currentMusic is { }) this.assetsManager.Unload(this.currentMusic);
                             this.currentMusic   = name;
                             this.isMusicLoading = false;
                         });
@@ -344,7 +344,7 @@ namespace UniT.Audio
                 audioClip =>
                 {
                     this.musicSource.clip = audioClip;
-                    if (this.currentMusic != null) this.assetsManager.Unload(this.currentMusic);
+                    if (this.currentMusic is { }) this.assetsManager.Unload(this.currentMusic);
                     this.currentMusic   = name;
                     this.isMusicLoading = false;
                     callback?.Invoke();
