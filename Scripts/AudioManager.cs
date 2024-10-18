@@ -301,7 +301,7 @@ namespace UniT.Audio
 
         UniTask IAudioManager.LoadMusicAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken)
         {
-            return UniTask.WaitUntil(() => !this.isMusicLoading, cancellationToken: cancellationToken)
+            return UniTask.WaitUntil(this, state => !state.isMusicLoading, cancellationToken: cancellationToken)
                 .ContinueWith(() =>
                 {
                     if (this.currentMusic == name) return UniTask.CompletedTask;
