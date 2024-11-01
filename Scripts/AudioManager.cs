@@ -299,22 +299,16 @@ namespace UniT.Audio
             );
         }
 
-        UniTask IAudioManager.LoadMusicAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken)
+        async UniTask IAudioManager.LoadMusicAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken)
         {
-            return UniTask.WaitUntil(this, state => !state.isMusicLoading, cancellationToken: cancellationToken)
-                .ContinueWith(() =>
-                {
-                    if (this.currentMusic == name) return UniTask.CompletedTask;
-                    this.isMusicLoading = true;
-                    return this.assetsManager.LoadAsync<AudioClip>(name, progress, cancellationToken)
-                        .ContinueWith(audioClip =>
-                        {
-                            this.musicSource.clip = audioClip;
-                            if (this.currentMusic is { }) this.assetsManager.Unload(this.currentMusic);
-                            this.currentMusic   = name;
-                            this.isMusicLoading = false;
-                        });
-                });
+            if (this.isMusicLoading) await UniTask.WaitUntil(this, state => !state.isMusicLoading, cancellationToken: cancellationToken);
+            if (this.currentMusic == name) return;
+            this.isMusicLoading = true;
+            var audioClip = await this.assetsManager.LoadAsync<AudioClip>(name, progress, cancellationToken);
+            this.musicSource.clip = audioClip;
+            if (this.currentMusic is { }) this.assetsManager.Unload(this.currentMusic);
+            this.currentMusic   = name;
+            this.isMusicLoading = false;
         }
         #else
         IEnumerator IAudioManager.LoadSoundAsync(string name, Action? callback, IProgress<float>? progress)
@@ -332,7 +326,7 @@ namespace UniT.Audio
 
         IEnumerator IAudioManager.LoadMusicAsync(string name, Action? callback, IProgress<float>? progress)
         {
-            yield return new WaitUntil(() => !this.isMusicLoading);
+            if (this.isMusicLoading) yield return new WaitUntil(() => !this.isMusicLoading);
             if (this.currentMusic == name)
             {
                 callback?.Invoke();
