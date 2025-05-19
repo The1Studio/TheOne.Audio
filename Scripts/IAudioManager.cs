@@ -1,9 +1,9 @@
 #nullable enable
-namespace UniT.Audio
+namespace TheOne.Audio
 {
     using System;
     using UnityEngine;
-    #if UNIT_UNITASK
+    #if THEONE_UNITASK
     using System.Threading;
     using Cysharp.Threading.Tasks;
     #else
@@ -102,7 +102,7 @@ namespace UniT.Audio
 
         #region Async
 
-        #if UNIT_UNITASK
+        #if THEONE_UNITASK
         public UniTask LoadSoundAsync(string name, IProgress<float>? progress = null, CancellationToken cancellationToken = default);
 
         public UniTask LoadMusicAsync(string name, IProgress<float>? progress = null, CancellationToken cancellationToken = default);
