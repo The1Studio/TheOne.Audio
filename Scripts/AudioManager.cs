@@ -1,16 +1,16 @@
 #nullable enable
-namespace UniT.Audio
+namespace TheOne.Audio
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using UniT.Extensions;
-    using UniT.Logging;
-    using UniT.ResourceManagement;
+    using TheOne.Extensions;
+    using TheOne.Logging;
+    using TheOne.ResourceManagement;
     using UnityEngine;
     using UnityEngine.Scripting;
-    using ILogger = UniT.Logging.ILogger;
-    #if UNIT_UNITASK
+    using ILogger = TheOne.Logging.ILogger;
+    #if THEONE_UNITASK
     using System.Threading;
     using Cysharp.Threading.Tasks;
     #else
@@ -97,7 +97,7 @@ namespace UniT.Audio
 
         void IAudioManager.LoadSound(object key) => this.soundPool.Load(key);
 
-        #if UNIT_UNITASK
+        #if THEONE_UNITASK
         UniTask IAudioManager.LoadSoundAsync(object key, IProgress<float>? progress, CancellationToken cancellationToken) => this.soundPool.LoadAsync(key, progress, cancellationToken);
         #else
         IEnumerator IAudioManager.LoadSoundAsync(object key, Action? callback, IProgress<float>? progress) => this.soundPool.LoadAsync(key, callback, progress);
@@ -175,7 +175,7 @@ namespace UniT.Audio
 
         void IAudioManager.LoadMusic(object key) => this.musicPool.Load(key);
 
-        #if UNIT_UNITASK
+        #if THEONE_UNITASK
         UniTask IAudioManager.LoadMusicAsync(object key, IProgress<float>? progress, CancellationToken cancellationToken) => this.musicPool.LoadAsync(key, progress, cancellationToken);
         #else
         IEnumerator IAudioManager.LoadMusicAsync(object key, Action? callback, IProgress<float>? progress) => this.musicPool.LoadAsync(key, callback, progress);
@@ -335,7 +335,7 @@ namespace UniT.Audio
                 this.Load(clip);
             }
 
-            #if UNIT_UNITASK
+            #if THEONE_UNITASK
             public async UniTask LoadAsync(object key, IProgress<float>? progress, CancellationToken cancellationToken)
             {
                 var clip = await this.keyToClip.GetOrAddAsync(key, () => this.manager.assetsManager.LoadAsync<AudioClip>(key, progress, cancellationToken));

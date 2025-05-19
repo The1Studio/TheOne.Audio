@@ -1,9 +1,9 @@
-#if UNIT_ZENJECT
+#if THEONE_ZENJECT
 #nullable enable
-namespace UniT.Audio.DI
+namespace TheOne.Audio.DI
 {
-    using UniT.Logging.DI;
-    using UniT.ResourceManagement.DI;
+    using TheOne.Logging.DI;
+    using TheOne.ResourceManagement.DI;
     using Zenject;
 
     public static class AudioManagerZenject

@@ -1,0 +1,17 @@
+{
+  "name": "TheOne.Audio",
+  "rootNamespace": "TheOne.Audio",
+  "references": [
+    "TheOne.Extensions",
+    "TheOne.Logging",
+    "TheOne.ResourceManagement",
+    "UniTask"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.cysharp.unitask",
+      "expression": "",
+      "define": "THEONE_UNITASK"
+    }
+  ]
+}
