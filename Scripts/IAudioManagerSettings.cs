@@ -1,5 +1,5 @@
 ﻿#nullable enable
-namespace UniT.Audio
+namespace TheOne.Audio
 {
     using System;
     using UnityEngine;
