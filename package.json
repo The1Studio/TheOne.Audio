@@ -1,8 +1,8 @@
 {
-  "name": "com.frostbun.unit.audio",
-  "displayName": "UniT Audio",
+  "name": "com.theone.audio",
+  "displayName": "TheOne Audio",
   "description": "Audio Manager for Unity",
-  "version": "1.0.8",
+  "version": "1.0.0",
   "unity": "2022.3",
   "license": "MIT",
   "author": {
@@ -11,8 +11,8 @@
     "url": "https://github.com/frostbun"
   },
   "dependencies": {
-    "com.frostbun.unit.extensions": "1.0.80",
-    "com.frostbun.unit.logging": "1.0.9",
-    "com.frostbun.unit.resourcemanagement": "1.0.15"
+    "com.theone.extensions": "1.0.28",
+    "com.theone.logging": "1.0.2",
+    "com.theone.resourcemanagement": "1.0.8"
   }
 }

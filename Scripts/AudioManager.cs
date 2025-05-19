@@ -1,16 +1,16 @@
 #nullable enable
-namespace UniT.Audio
+namespace TheOne.Audio
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using UniT.Extensions;
-    using UniT.Logging;
-    using UniT.ResourceManagement;
+    using TheOne.Extensions;
+    using TheOne.Logging;
+    using TheOne.ResourceManagement;
     using UnityEngine;
     using UnityEngine.Scripting;
-    using ILogger = UniT.Logging.ILogger;
-    #if UNIT_UNITASK
+    using ILogger = TheOne.Logging.ILogger;
+    #if THEONE_UNITASK
     using System.Threading;
     using Cysharp.Threading.Tasks;
     #else
@@ -96,7 +96,7 @@ namespace UniT.Audio
 
         void IAudioManager.LoadSound(string name) => this.soundPool.Load(name);
 
-        #if UNIT_UNITASK
+        #if THEONE_UNITASK
         UniTask IAudioManager.LoadSoundAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken) => this.soundPool.LoadAsync(name, progress, cancellationToken);
         #else
         IEnumerator IAudioManager.LoadSoundAsync(string name, Action? callback, IProgress<float>? progress) => this.soundPool.LoadAsync(name, callback, progress);
@@ -174,7 +174,7 @@ namespace UniT.Audio
 
         void IAudioManager.LoadMusic(string name) => this.musicPool.Load(name);
 
-        #if UNIT_UNITASK
+        #if THEONE_UNITASK
         UniTask IAudioManager.LoadMusicAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken) => this.musicPool.LoadAsync(name, progress, cancellationToken);
         #else
         IEnumerator IAudioManager.LoadMusicAsync(string name, Action? callback, IProgress<float>? progress) => this.musicPool.LoadAsync(name, callback, progress);
@@ -365,7 +365,7 @@ namespace UniT.Audio
                 this.Load(this.nameToClip[name]);
             }
 
-            #if UNIT_UNITASK
+            #if THEONE_UNITASK
             public async UniTask LoadAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken)
             {
                 var clip = await this.nameToClip.GetOrAddAsync(name, () => this.assetsManager.LoadAsync<AudioClip>(name, progress, cancellationToken));

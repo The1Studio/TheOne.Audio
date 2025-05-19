@@ -1,11 +1,11 @@
 {
-  "name": "UniT.Audio.DI",
-  "rootNamespace": "UniT.Audio.DI",
+  "name": "TheOne.Audio.DI",
+  "rootNamespace": "TheOne.Audio.DI",
   "references": [
-    "UniT.Logging.DI",
-    "UniT.ResourceManagement.DI",
-    "UniT.Audio",
-    "UniT.DI",
+    "TheOne.Logging.DI",
+    "TheOne.ResourceManagement.DI",
+    "TheOne.Audio",
+    "TheOne.DI",
     "Zenject",
     "VContainer"
   ],
@@ -13,17 +13,17 @@
     {
       "name": "com.frostbun.unit.di",
       "expression": "",
-      "define": "UNIT_DI"
+      "define": "THEONE_DI"
     },
     {
       "name": "com.svermeulen.extenject",
       "expression": "",
-      "define": "UNIT_ZENJECT"
+      "define": "THEONE_ZENJECT"
     },
     {
       "name": "jp.hadashikick.vcontainer",
       "expression": "",
-      "define": "UNIT_VCONTAINER"
+      "define": "THEONE_VCONTAINER"
     }
   ]
 }
