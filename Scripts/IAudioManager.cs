@@ -16,33 +16,55 @@ namespace UniT.Audio
 
         public float SoundVolume { get; set; }
 
-        public float MusicVolume { get; set; }
-
-        public float MasterVolume { get; set; }
-
         public bool MuteSound { get; set; }
+
+        public float MusicVolume { get; set; }
 
         public bool MuteMusic { get; set; }
 
+        public float MasterVolume { get; set; }
+
         public bool MuteMaster { get; set; }
+
+        public void RegisterSound(AudioSource source);
+
+        public void UnregisterSound(AudioSource source);
 
         #endregion
 
         #region Sound
 
-        public void RegisterSound(AudioSource soundSource);
-
-        public void UnregisterSound(AudioSource soundSource);
+        public void LoadSound(AudioClip clip);
 
         public void LoadSound(string name);
 
+        public void PlaySoundOneShot(AudioClip clip);
+
         public void PlaySoundOneShot(string name);
 
+        public void PlaySound(AudioClip clip, bool loop = false, bool force = false);
+
         public void PlaySound(string name, bool loop = false, bool force = false);
+
+        public void PauseSound(AudioClip clip);
+
+        public void PauseSound(string name);
+
+        public void PauseAllSounds();
+
+        public void ResumeSound(AudioClip clip);
+
+        public void ResumeSound(string name);
+
+        public void ResumeAllSounds();
+
+        public void StopSound(AudioClip clip);
 
         public void StopSound(string name);
 
         public void StopAllSounds();
+
+        public void UnloadSound(AudioClip clip);
 
         public void UnloadSound(string name);
 
@@ -56,7 +78,11 @@ namespace UniT.Audio
 
         public float MusicTime { get; set; }
 
+        public void LoadMusic(AudioClip clip);
+
         public void LoadMusic(string name);
+
+        public void PlayMusic(AudioClip clip, bool loop = true, bool force = false);
 
         public void PlayMusic(string name, bool loop = true, bool force = false);
 
@@ -66,7 +92,11 @@ namespace UniT.Audio
 
         public void StopMusic();
 
-        public void UnloadMusic();
+        public void UnloadMusic(AudioClip clip);
+
+        public void UnloadMusic(string name);
+
+        public void UnloadAllMusics();
 
         #endregion
 
