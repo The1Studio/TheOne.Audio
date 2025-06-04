@@ -361,8 +361,8 @@ namespace UniT.Audio
 
             public void Load(string name)
             {
-                this.nameToClip.TryAdd(name, () => this.assetsManager.Load<AudioClip>(name));
-                this.Load(this.nameToClip[name]);
+                var clip = this.nameToClip.GetOrAdd(name, () => this.assetsManager.Load<AudioClip>(name));
+                this.Load(clip);
             }
 
             #if UNIT_UNITASK
