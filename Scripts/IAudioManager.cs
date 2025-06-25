@@ -12,26 +12,6 @@ namespace UniT.Audio
 
     public interface IAudioManager
     {
-        #region Configs
-
-        public float SoundVolume { get; set; }
-
-        public bool MuteSound { get; set; }
-
-        public float MusicVolume { get; set; }
-
-        public bool MuteMusic { get; set; }
-
-        public float MasterVolume { get; set; }
-
-        public bool MuteMaster { get; set; }
-
-        public void RegisterSound(AudioSource source);
-
-        public void UnregisterSound(AudioSource source);
-
-        #endregion
-
         #region Sound
 
         public void LoadSound(AudioClip clip);
