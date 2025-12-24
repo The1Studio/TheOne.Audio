@@ -16,37 +16,37 @@ namespace UniT.Audio
 
         public void LoadSound(AudioClip clip);
 
-        public void LoadSound(string name);
+        public void LoadSound(object key);
 
         public void PlaySoundOneShot(AudioClip clip);
 
-        public void PlaySoundOneShot(string name);
+        public void PlaySoundOneShot(object key);
 
         public void PlaySound(AudioClip clip, bool loop = false, bool force = false);
 
-        public void PlaySound(string name, bool loop = false, bool force = false);
+        public void PlaySound(object key, bool loop = false, bool force = false);
 
         public void PauseSound(AudioClip clip);
 
-        public void PauseSound(string name);
+        public void PauseSound(object key);
 
         public void PauseAllSounds();
 
         public void ResumeSound(AudioClip clip);
 
-        public void ResumeSound(string name);
+        public void ResumeSound(object key);
 
         public void ResumeAllSounds();
 
         public void StopSound(AudioClip clip);
 
-        public void StopSound(string name);
+        public void StopSound(object key);
 
         public void StopAllSounds();
 
         public void UnloadSound(AudioClip clip);
 
-        public void UnloadSound(string name);
+        public void UnloadSound(object key);
 
         public void UnloadAllSounds();
 
@@ -54,17 +54,17 @@ namespace UniT.Audio
 
         #region Music
 
-        public string? CurrentMusic { get; }
+        public object? CurrentMusic { get; }
 
         public float MusicTime { get; set; }
 
         public void LoadMusic(AudioClip clip);
 
-        public void LoadMusic(string name);
+        public void LoadMusic(object key);
 
         public void PlayMusic(AudioClip clip, bool loop = true, bool force = false);
 
-        public void PlayMusic(string name, bool loop = true, bool force = false);
+        public void PlayMusic(object key, bool loop = true, bool force = false);
 
         public void PauseMusic();
 
@@ -74,7 +74,7 @@ namespace UniT.Audio
 
         public void UnloadMusic(AudioClip clip);
 
-        public void UnloadMusic(string name);
+        public void UnloadMusic(object key);
 
         public void UnloadAllMusics();
 
@@ -83,13 +83,13 @@ namespace UniT.Audio
         #region Async
 
         #if UNIT_UNITASK
-        public UniTask LoadSoundAsync(string name, IProgress<float>? progress = null, CancellationToken cancellationToken = default);
+        public UniTask LoadSoundAsync(object key, IProgress<float>? progress = null, CancellationToken cancellationToken = default);
 
-        public UniTask LoadMusicAsync(string name, IProgress<float>? progress = null, CancellationToken cancellationToken = default);
+        public UniTask LoadMusicAsync(object key, IProgress<float>? progress = null, CancellationToken cancellationToken = default);
         #else
-        public IEnumerator LoadSoundAsync(string name, Action? callback = null, IProgress<float>? progress = null);
+        public IEnumerator LoadSoundAsync(object key, Action? callback = null, IProgress<float>? progress = null);
 
-        public IEnumerator LoadMusicAsync(string name, Action? callback = null, IProgress<float>? progress = null);
+        public IEnumerator LoadMusicAsync(object key, Action? callback = null, IProgress<float>? progress = null);
         #endif
 
         #endregion

@@ -95,43 +95,43 @@ namespace UniT.Audio
 
         void IAudioManager.LoadSound(AudioClip clip) => this.soundPool.Load(clip);
 
-        void IAudioManager.LoadSound(string name) => this.soundPool.Load(name);
+        void IAudioManager.LoadSound(object key) => this.soundPool.Load(key);
 
         #if UNIT_UNITASK
-        UniTask IAudioManager.LoadSoundAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken) => this.soundPool.LoadAsync(name, progress, cancellationToken);
+        UniTask IAudioManager.LoadSoundAsync(object key, IProgress<float>? progress, CancellationToken cancellationToken) => this.soundPool.LoadAsync(key, progress, cancellationToken);
         #else
-        IEnumerator IAudioManager.LoadSoundAsync(string name, Action? callback, IProgress<float>? progress) => this.soundPool.LoadAsync(name, callback, progress);
+        IEnumerator IAudioManager.LoadSoundAsync(object key, Action? callback, IProgress<float>? progress) => this.soundPool.LoadAsync(key, callback, progress);
         #endif
 
         void IAudioManager.PlaySoundOneShot(AudioClip clip) => this.soundPool.PlayOneShot(clip);
 
-        void IAudioManager.PlaySoundOneShot(string name) => this.soundPool.PlayOneShot(name);
+        void IAudioManager.PlaySoundOneShot(object key) => this.soundPool.PlayOneShot(key);
 
         void IAudioManager.PlaySound(AudioClip clip, bool loop, bool force) => this.soundPool.Play(clip, loop, force);
 
-        void IAudioManager.PlaySound(string name, bool loop, bool force) => this.soundPool.Play(name, loop, force);
+        void IAudioManager.PlaySound(object key, bool loop, bool force) => this.soundPool.Play(key, loop, force);
 
         void IAudioManager.PauseSound(AudioClip clip) => this.soundPool.Pause(clip);
 
-        void IAudioManager.PauseSound(string name) => this.soundPool.Pause(name);
+        void IAudioManager.PauseSound(object key) => this.soundPool.Pause(key);
 
         void IAudioManager.PauseAllSounds() => this.soundPool.PauseAll();
 
         void IAudioManager.ResumeSound(AudioClip clip) => this.soundPool.Resume(clip);
 
-        void IAudioManager.ResumeSound(string name) => this.soundPool.Resume(name);
+        void IAudioManager.ResumeSound(object key) => this.soundPool.Resume(key);
 
         void IAudioManager.ResumeAllSounds() => this.soundPool.ResumeAll();
 
         void IAudioManager.StopSound(AudioClip clip) => this.soundPool.Stop(clip);
 
-        void IAudioManager.StopSound(string name) => this.soundPool.Stop(name);
+        void IAudioManager.StopSound(object key) => this.soundPool.Stop(key);
 
         void IAudioManager.StopAllSounds() => this.soundPool.StopAll();
 
         void IAudioManager.UnloadSound(AudioClip clip) => this.soundPool.Unload(clip);
 
-        void IAudioManager.UnloadSound(string name) => this.soundPool.Unload(name);
+        void IAudioManager.UnloadSound(object key) => this.soundPool.Unload(key);
 
         void IAudioManager.UnloadAllSounds() => this.soundPool.UnloadAll();
 
@@ -140,9 +140,9 @@ namespace UniT.Audio
         #region Music
 
         private AudioClip? currentMusicClip;
-        private string?    currentMusicName;
+        private object?    currentMusicKey;
 
-        string? IAudioManager.CurrentMusic => this.currentMusicClip?.name ?? this.currentMusicName;
+        object? IAudioManager.CurrentMusic => this.currentMusicClip ?? this.currentMusicKey;
 
         float IAudioManager.MusicTime
         {
@@ -152,9 +152,9 @@ namespace UniT.Audio
                 {
                     return this.musicPool.GetTime(this.currentMusicClip);
                 }
-                if (this.currentMusicName is { })
+                if (this.currentMusicKey is { })
                 {
-                    return this.musicPool.GetTime(this.currentMusicName);
+                    return this.musicPool.GetTime(this.currentMusicKey);
                 }
                 return 0;
             }
@@ -164,21 +164,21 @@ namespace UniT.Audio
                 {
                     this.musicPool.SetTime(this.currentMusicClip, value);
                 }
-                if (this.currentMusicName is { })
+                if (this.currentMusicKey is { })
                 {
-                    this.musicPool.SetTime(this.currentMusicName, value);
+                    this.musicPool.SetTime(this.currentMusicKey, value);
                 }
             }
         }
 
         void IAudioManager.LoadMusic(AudioClip clip) => this.musicPool.Load(clip);
 
-        void IAudioManager.LoadMusic(string name) => this.musicPool.Load(name);
+        void IAudioManager.LoadMusic(object key) => this.musicPool.Load(key);
 
         #if UNIT_UNITASK
-        UniTask IAudioManager.LoadMusicAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken) => this.musicPool.LoadAsync(name, progress, cancellationToken);
+        UniTask IAudioManager.LoadMusicAsync(object key, IProgress<float>? progress, CancellationToken cancellationToken) => this.musicPool.LoadAsync(key, progress, cancellationToken);
         #else
-        IEnumerator IAudioManager.LoadMusicAsync(string name, Action? callback, IProgress<float>? progress) => this.musicPool.LoadAsync(name, callback, progress);
+        IEnumerator IAudioManager.LoadMusicAsync(object key, Action? callback, IProgress<float>? progress) => this.musicPool.LoadAsync(key, callback, progress);
         #endif
 
         void IAudioManager.PlayMusic(AudioClip clip, bool loop, bool force)
@@ -188,29 +188,29 @@ namespace UniT.Audio
                 this.musicPool.Stop(this.currentMusicClip);
                 this.currentMusicClip = null;
             }
-            if (this.currentMusicName is { })
+            if (this.currentMusicKey is { })
             {
-                this.musicPool.Stop(this.currentMusicName);
-                this.currentMusicName = null;
+                this.musicPool.Stop(this.currentMusicKey);
+                this.currentMusicKey = null;
             }
             this.musicPool.Play(clip, loop, force);
             this.currentMusicClip = clip;
         }
 
-        void IAudioManager.PlayMusic(string name, bool loop, bool force)
+        void IAudioManager.PlayMusic(object key, bool loop, bool force)
         {
             if (this.currentMusicClip is { })
             {
                 this.musicPool.Stop(this.currentMusicClip);
                 this.currentMusicClip = null;
             }
-            if (this.currentMusicName is { } && this.currentMusicName != name)
+            if (this.currentMusicKey is { } && this.currentMusicKey != key)
             {
-                this.musicPool.Stop(this.currentMusicName);
-                this.currentMusicName = null;
+                this.musicPool.Stop(this.currentMusicKey);
+                this.currentMusicKey = null;
             }
-            this.musicPool.Play(name, loop, force);
-            this.currentMusicName = name;
+            this.musicPool.Play(key, loop, force);
+            this.currentMusicKey = key;
         }
 
         void IAudioManager.PauseMusic()
@@ -219,7 +219,7 @@ namespace UniT.Audio
             {
                 this.musicPool.Pause(clip);
             }
-            if (this.currentMusicName is { } name)
+            if (this.currentMusicKey is { } name)
             {
                 this.musicPool.Pause(name);
             }
@@ -231,7 +231,7 @@ namespace UniT.Audio
             {
                 this.musicPool.Resume(clip);
             }
-            if (this.currentMusicName is { } name)
+            if (this.currentMusicKey is { } name)
             {
                 this.musicPool.Resume(name);
             }
@@ -243,7 +243,7 @@ namespace UniT.Audio
             {
                 this.musicPool.Stop(clip);
             }
-            if (this.currentMusicName is { } name)
+            if (this.currentMusicKey is { } name)
             {
                 this.musicPool.Stop(name);
             }
@@ -258,12 +258,12 @@ namespace UniT.Audio
             }
         }
 
-        void IAudioManager.UnloadMusic(string name)
+        void IAudioManager.UnloadMusic(object key)
         {
-            this.musicPool.Unload(name);
-            if (this.currentMusicName == name)
+            this.musicPool.Unload(key);
+            if (this.currentMusicKey == key)
             {
-                this.currentMusicName = null;
+                this.currentMusicKey = null;
             }
         }
 
@@ -271,7 +271,7 @@ namespace UniT.Audio
         {
             this.musicPool.UnloadAll();
             this.currentMusicClip = null;
-            this.currentMusicName = null;
+            this.currentMusicKey  = null;
         }
 
         #endregion
@@ -281,7 +281,7 @@ namespace UniT.Audio
             private readonly AudioManager manager;
 
             private readonly HashSet<AudioSource>               registeredSources = new HashSet<AudioSource>();
-            private readonly Dictionary<string, AudioClip>      nameToClip        = new Dictionary<string, AudioClip>();
+            private readonly Dictionary<object, AudioClip>      keyToClip         = new Dictionary<object, AudioClip>();
             private readonly Dictionary<AudioClip, AudioSource> clipToSource      = new Dictionary<AudioClip, AudioSource>();
 
             public AudioPool(AudioManager manager)
@@ -329,23 +329,23 @@ namespace UniT.Audio
                 });
             }
 
-            public void Load(string name)
+            public void Load(object key)
             {
-                var clip = this.nameToClip.GetOrAdd(name, () => this.manager.assetsManager.Load<AudioClip>(name));
+                var clip = this.keyToClip.GetOrAdd(key, () => this.manager.assetsManager.Load<AudioClip>(key));
                 this.Load(clip);
             }
 
             #if UNIT_UNITASK
-            public async UniTask LoadAsync(string name, IProgress<float>? progress, CancellationToken cancellationToken)
+            public async UniTask LoadAsync(object key, IProgress<float>? progress, CancellationToken cancellationToken)
             {
-                var clip = await this.nameToClip.GetOrAddAsync(name, () => this.manager.assetsManager.LoadAsync<AudioClip>(name, progress, cancellationToken));
+                var clip = await this.keyToClip.GetOrAddAsync(key, () => this.manager.assetsManager.LoadAsync<AudioClip>(key, progress, cancellationToken));
                 this.Load(clip);
             }
             #else
-            public IEnumerator LoadAsync(string name, Action? callback, IProgress<float>? progress)
+            public IEnumerator LoadAsync(object key, Action? callback, IProgress<float>? progress)
             {
                 var clip = default(AudioClip)!;
-                yield return this.nameToClip.GetOrAddAsync(
+                yield return this.keyToClip.GetOrAddAsync(
                     name,
                     callback => this.manager.assetsManager.LoadAsync(name, callback, progress),
                     result => clip = result
@@ -362,9 +362,9 @@ namespace UniT.Audio
                 this.manager.logger.Debug($"Playing one shot {clip.name}");
             }
 
-            public void PlayOneShot(string name)
+            public void PlayOneShot(object key)
             {
-                var clip = this.nameToClip.GetOrAdd(name, () => this.manager.assetsManager.Load<AudioClip>(name));
+                var clip = this.keyToClip.GetOrAdd(key, () => this.manager.assetsManager.Load<AudioClip>(key));
                 this.PlayOneShot(clip);
             }
 
@@ -377,9 +377,9 @@ namespace UniT.Audio
                 this.manager.logger.Debug($"Playing {clip.name}, loop: {loop}");
             }
 
-            public void Play(string name, bool loop, bool force)
+            public void Play(object key, bool loop, bool force)
             {
-                var clip = this.nameToClip.GetOrAdd(name, () => this.manager.assetsManager.Load<AudioClip>(name));
+                var clip = this.keyToClip.GetOrAdd(key, () => this.manager.assetsManager.Load<AudioClip>(key));
                 this.Play(clip, loop, force);
             }
 
@@ -389,9 +389,9 @@ namespace UniT.Audio
                 return source.time;
             }
 
-            public float GetTime(string name)
+            public float GetTime(object key)
             {
-                if (!this.TryGetClip(name, out var clip)) return 0;
+                if (!this.TryGetClip(key, out var clip)) return 0;
                 return this.GetTime(clip);
             }
 
@@ -402,9 +402,9 @@ namespace UniT.Audio
                 this.manager.logger.Debug($"Set {clip.name} time to {time}");
             }
 
-            public void SetTime(string name, float time)
+            public void SetTime(object key, float time)
             {
-                if (!this.TryGetClip(name, out var clip)) return;
+                if (!this.TryGetClip(key, out var clip)) return;
                 this.SetTime(clip, time);
             }
 
@@ -415,9 +415,9 @@ namespace UniT.Audio
                 this.manager.logger.Debug($"Paused {clip.name}");
             }
 
-            public void Pause(string name)
+            public void Pause(object key)
             {
-                if (!this.TryGetClip(name, out var clip)) return;
+                if (!this.TryGetClip(key, out var clip)) return;
                 this.Pause(clip);
             }
 
@@ -433,9 +433,9 @@ namespace UniT.Audio
                 this.manager.logger.Debug($"Resumed {clip.name}");
             }
 
-            public void Resume(string name)
+            public void Resume(object key)
             {
-                if (!this.TryGetClip(name, out var clip)) return;
+                if (!this.TryGetClip(key, out var clip)) return;
                 this.Resume(clip);
             }
 
@@ -451,9 +451,9 @@ namespace UniT.Audio
                 this.manager.logger.Debug($"Stopped {clip.name}");
             }
 
-            public void Stop(string name)
+            public void Stop(object key)
             {
-                if (!this.TryGetClip(name, out var clip)) return;
+                if (!this.TryGetClip(key, out var clip)) return;
                 this.Stop(clip);
             }
 
@@ -472,17 +472,17 @@ namespace UniT.Audio
                 this.manager.logger.Debug($"Unloaded {clip.name}");
             }
 
-            public void Unload(string name)
+            public void Unload(object key)
             {
-                if (!this.TryGetClip(name, out var clip)) return;
+                if (!this.TryGetClip(key, out var clip)) return;
                 this.Unload(clip);
-                this.manager.assetsManager.Unload(name);
-                this.nameToClip.Remove(name);
+                this.manager.assetsManager.Unload(key);
+                this.keyToClip.Remove(key);
             }
 
             public void UnloadAll()
             {
-                this.nameToClip.Keys.SafeForEach(this.Unload);
+                this.keyToClip.Keys.SafeForEach(this.Unload);
                 this.clipToSource.Keys.SafeForEach(this.Unload);
             }
 
@@ -537,10 +537,10 @@ namespace UniT.Audio
                 return false;
             }
 
-            private bool TryGetClip(string name, [MaybeNullWhen(false)] out AudioClip clip)
+            private bool TryGetClip(object key, [MaybeNullWhen(false)] out AudioClip clip)
             {
-                if (this.nameToClip.TryGetValue(name, out clip)) return true;
-                this.manager.logger.Warning($"{name} not loaded");
+                if (this.keyToClip.TryGetValue(key, out clip)) return true;
+                this.manager.logger.Warning($"{key} not loaded");
                 return false;
             }
 
