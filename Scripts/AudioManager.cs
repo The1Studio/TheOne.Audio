@@ -346,8 +346,8 @@ namespace UniT.Audio
             {
                 var clip = default(AudioClip)!;
                 yield return this.keyToClip.GetOrAddAsync(
-                    name,
-                    callback => this.manager.assetsManager.LoadAsync(name, callback, progress),
+                    key,
+                    callback => this.manager.assetsManager.LoadAsync(key, callback, progress),
                     result => clip = result
                 );
                 this.Load(clip);
